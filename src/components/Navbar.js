@@ -23,9 +23,9 @@ const CustomNavbar = () => {
   const hasTried = useRef(false);
   const busy = useRef(false);
   const flashTimer = useRef();
-  const messageTimer = useRef();
   const cooldownTimer = useRef();
   const jokeIndex = useRef(0);
+  const themeControlRef = useRef(null);
 
   useEffect(() => {
     if (!liveOpen) return;
@@ -53,17 +53,27 @@ const CustomNavbar = () => {
 
   useEffect(() => () => {
     clearTimeout(flashTimer.current);
-    clearTimeout(messageTimer.current);
     clearTimeout(cooldownTimer.current);
     document.documentElement.dataset.theme = 'dark';
   }, []);
 
+  // The tooltip is hover-driven, so the only thing we need to catch is a
+  // stray tap outside of it on touch devices (no pointerleave there).
+  useEffect(() => {
+    if (!message) return undefined;
+    const closeOutside = (event) => {
+      if (!themeControlRef.current?.contains(event.target)) setMessage('');
+    };
+    document.addEventListener('pointerdown', closeOutside);
+    return () => document.removeEventListener('pointerdown', closeOutside);
+  }, [message]);
+
   const showMessage = () => {
-    clearTimeout(messageTimer.current);
     setMessage(themeJokes[jokeIndex.current]);
     jokeIndex.current = (jokeIndex.current + 1) % themeJokes.length;
-    messageTimer.current = setTimeout(() => setMessage(''), 5000);
   };
+
+  const hideMessage = () => setMessage('');
 
   const teaseAgain = () => {
     if (hasTried.current && theme !== 'light') {
@@ -96,14 +106,16 @@ const CustomNavbar = () => {
             <img src={`${process.env.PUBLIC_URL}/t2.png`} width="32" height="32" alt="" />
             <span>CFAT</span>
           </Link>
-          <div className="theme-control">
+          <div className="theme-control" ref={themeControlRef} onPointerLeave={hideMessage} onBlur={(event) => {
+            if (!event.currentTarget.contains(event.relatedTarget)) hideMessage();
+          }}>
           <button className="theme-toggle" onClick={tryLightMode} onPointerEnter={teaseAgain} onFocus={teaseAgain} aria-label="Try light mode" aria-describedby={message ? 'theme-joke' : undefined}>
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" aria-hidden="true">
               {theme === 'dark' ? <><circle cx="12" cy="12" r="4" /><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5" /></> : <path d="M20.8 14A9 9 0 0 1 10 3.2 9 9 0 1 0 20.8 14Z" />}
             </svg>
           </button>
           <div id="theme-joke" className={`theme-joke${message ? ' is-visible' : ''}`} role="status" aria-live="polite" aria-atomic="true">
-            {message && <><span>{message}</span><button type="button" onClick={() => setMessage('')} aria-label="Dismiss message"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" aria-hidden="true"><path d="m4 4 8 8M12 4l-8 8" /></svg></button></>}
+            {message}
           </div>
           </div>
         </div>

@@ -13,6 +13,7 @@ const Hero = () => (
         </div>
       </div>
       <SocialLinks />
+      <p className="hero-social-note">My screen time says I'm probably already there.</p>
     </div>
   </section>
 );
