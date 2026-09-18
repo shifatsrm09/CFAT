@@ -20,7 +20,7 @@ function App() {
           <Route path="/contact" element={<ContactPage />} />
         </Routes>
         </main>
-        <footer className="site-footer">© {new Date().getFullYear()} <Link to="/">CFAT</Link> <span aria-hidden="true">|</span> Made with <span aria-label="love">♥</span> by <Link to="/about">Shifat Rahman</Link></footer>
+        <footer className="site-footer">© {new Date().getFullYear()} <Link to="/about">Dewan Sifat Rahman</Link>. All rights reserved.</footer>
       </div>
     </Router>
   );
