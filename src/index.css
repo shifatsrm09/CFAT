@@ -81,6 +81,13 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--text-primary); 
 .site-footer a { text-underline-offset: 3px; }
 .site-footer > span { margin: 0 3px; }
 .page-section { padding: 64px 20px; }
+.contact-page { flex: 1; display: grid; place-items: center; text-align: center; }
+.contact-content { width: 100%; max-width: 560px; }
+.contact-content h1 { margin: 0 0 30px; font-size: clamp(30px, 5vw, 38px); font-weight: 700; letter-spacing: -0.6px; }
+.contact-emails { display: flex; flex-direction: column; align-items: center; gap: 12px; }
+.contact-emails a { max-width: 100%; overflow-wrap: anywhere; font-size: clamp(17px, 4vw, 21px); text-decoration-color: #ae96d660; text-underline-offset: 6px; }
+.contact-emails a:hover { text-decoration-color: currentColor; }
+.contact-social-note { max-width: 440px; margin: 36px auto 0; color: var(--text-secondary); font-size: 16px; line-height: 1.8; text-wrap: pretty; }
 .about-text { color: var(--text-secondary); font-size: 18px; }
 .card, .form-control { background: var(--bg-secondary); border-color: var(--border); color: var(--text-primary); }
 .card-title, .form-label { color: var(--text-primary); }

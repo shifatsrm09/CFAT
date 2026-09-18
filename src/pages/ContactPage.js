@@ -1,49 +1,18 @@
 import React from 'react';
-import { Container, Row, Col, Form, Button } from 'react-bootstrap';
+import SocialLinks from '../components/SocialLinks';
 
-const ContactPage = () => {
-  return (
-    <div className="page-section">
-      <Container>
-        <Row>
-          <Col lg={8} className="mx-auto">
-            <h1 className="text-center mb-5">Contact Me</h1>
-            <Form>
-              <Row>
-                <Col md={6}>
-                  <Form.Group className="mb-3">
-                    <Form.Label>Name</Form.Label>
-                    <Form.Control type="text" placeholder="Your Name" />
-                  </Form.Group>
-                </Col>
-                <Col md={6}>
-                  <Form.Group className="mb-3">
-                    <Form.Label>Email</Form.Label>
-                    <Form.Control type="email" placeholder="your.email@example.com" />
-                  </Form.Group>
-                </Col>
-              </Row>
-              <Form.Group className="mb-3">
-                <Form.Label>Subject</Form.Label>
-                <Form.Control type="text" placeholder="Subject" />
-              </Form.Group>
-              <Form.Group className="mb-3">
-                <Form.Label>Message</Form.Label>
-                <Form.Control 
-                  as="textarea" 
-                  rows={5} 
-                  placeholder="Your message here..." 
-                />
-              </Form.Group>
-              <div className="text-center">
-                <Button type="submit" className="btn-custom">Send Message</Button>
-              </div>
-            </Form>
-          </Col>
-        </Row>
-      </Container>
+const ContactPage = () => (
+  <section className="page-section contact-page" aria-labelledby="contact-title">
+    <div className="contact-content">
+      <h1 id="contact-title">Contact Me</h1>
+      <div className="contact-emails">
+        <a href="mailto:shifatsrm09@gmail.com">shifatsrm09@gmail.com</a>
+        <a href="mailto:me@cfat.site">me@cfat.site</a>
+      </div>
+      <p className="contact-social-note">You can always reach me through my socials. My screen time says I’m probably already there.</p>
+      <SocialLinks />
     </div>
-  );
-};
+  </section>
+);
 
 export default ContactPage;
