@@ -1,7 +1,6 @@
 import React from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import selfImage from '../Assets/self.png';
 
 const Hero = () => {
   return (
@@ -11,8 +10,10 @@ const Hero = () => {
           <Col lg={6} className="mb-4 mb-lg-0">
             <div className="d-flex justify-content-center">
               <img 
-                src={selfImage} 
-                alt="Profile" 
+                src={`${process.env.PUBLIC_URL}/pixilated.png`}
+                alt="Pixel art portrait of Shifat Rahman"
+                width={1254}
+                height={1254}
                 className="profile-image"
               />
             </div>
