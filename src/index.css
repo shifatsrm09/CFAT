@@ -42,6 +42,18 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--text-primary); 
 .nav-links { display: flex; align-items: center; gap: 25px; font-size: 16px; }
 .nav-links a { text-decoration: none; text-underline-offset: 5px; }
 .nav-links a:hover, .nav-links a.active { text-decoration: underline; }
+.live-dropdown { position: relative; }
+.live-toggle { display: flex; align-items: center; gap: 7px; padding: 4px 0; border: 0; background: transparent; color: var(--text-primary); cursor: pointer; }
+.live-dot { width: 6px; height: 6px; border-radius: 50%; background: #8bcda3; box-shadow: 0 0 0 3px #8bcda310; }
+.live-toggle > svg { transition: transform 150ms ease; }
+.live-toggle > svg.is-open { transform: rotate(180deg); }
+.live-panel { position: absolute; z-index: 100; top: calc(100% + 12px); right: 0; width: 264px; max-width: calc(100vw - 36px); padding: 8px; border: 1px solid #b69bdb26; border-radius: 12px; background: var(--bg-secondary); box-shadow: 0 12px 32px #0005, inset 0 1px 0 #ffffff08; }
+.live-heading { margin: 4px 10px 6px; color: var(--text-secondary); font-size: 10px; font-weight: 600; letter-spacing: 1.5px; }
+.nav-links .live-panel a { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px; border-radius: 7px; text-decoration: none; }
+.nav-links .live-panel a:hover, .nav-links .live-panel a:focus-visible { background: var(--button-bg); }
+.live-panel strong { display: block; font-size: 14px; font-weight: 600; }
+.live-panel small { display: block; margin-top: 2px; font-size: 12px; color: var(--text-secondary); }
+.live-panel a > svg { flex-shrink: 0; color: var(--text-secondary); }
 .site-main { flex: 1; display: flex; flex-direction: column; }
 .site-main > div { flex: 1; display: flex; flex-direction: column; }
 .hero-section { flex: 1; display: flex; align-items: center; justify-content: center; padding: 58px 24px 64px; text-align: center; }
@@ -78,7 +90,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--text-primary); 
 @media (max-width: 575px) {
   .site-nav { padding: 12px 18px; gap: 12px; flex-wrap: wrap; }
   .site-brand { font-size: 22px; }
-  .nav-links { gap: 16px; font-size: 14px; }
+  .nav-links { gap: 16px; font-size: 14px; width: 100%; justify-content: flex-end; }
   .brand-group { gap: 3px; }
   .theme-joke { width: calc(100vw - 185px); font-size: 13px; padding: 8px; gap: 4px; }
   .hero-section { padding: 42px 20px; }

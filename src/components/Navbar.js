@@ -15,6 +15,9 @@ const themeJokes = [
 ];
 
 const CustomNavbar = () => {
+  const [liveOpen, setLiveOpen] = useState(false);
+  const liveRef = useRef(null);
+  const liveButtonRef = useRef(null);
   const [theme, setTheme] = useState('dark');
   const [message, setMessage] = useState('');
   const hasTried = useRef(false);
@@ -23,6 +26,25 @@ const CustomNavbar = () => {
   const messageTimer = useRef();
   const cooldownTimer = useRef();
   const jokeIndex = useRef(0);
+
+  useEffect(() => {
+    if (!liveOpen) return;
+    const closeOutside = (event) => {
+      if (!liveRef.current?.contains(event.target)) setLiveOpen(false);
+    };
+    const closeOnEscape = (event) => {
+      if (event.key === 'Escape') {
+        setLiveOpen(false);
+        liveButtonRef.current?.focus();
+      }
+    };
+    document.addEventListener('pointerdown', closeOutside);
+    document.addEventListener('keydown', closeOnEscape);
+    return () => {
+      document.removeEventListener('pointerdown', closeOutside);
+      document.removeEventListener('keydown', closeOnEscape);
+    };
+  }, [liveOpen]);
 
   useEffect(() => {
     document.documentElement.dataset.theme = theme;
@@ -89,6 +111,27 @@ const CustomNavbar = () => {
           <NavLink to="/about">About</NavLink>
           <NavLink to="/portfolio">Portfolio</NavLink>
           <NavLink to="/contact">Contact</NavLink>
+          <div className="live-dropdown" ref={liveRef} onBlur={(event) => {
+            if (!event.currentTarget.contains(event.relatedTarget)) setLiveOpen(false);
+          }}>
+            <button type="button" className="live-toggle" ref={liveButtonRef} aria-expanded={liveOpen} aria-controls="live-links" onClick={() => setLiveOpen(!liveOpen)}>
+              <span className="live-dot" aria-hidden="true" />Live
+              <svg className={liveOpen ? 'is-open' : ''} width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" aria-hidden="true"><path d="m4 6 4 4 4-4" /></svg>
+            </button>
+            <div id="live-links" className="live-panel" hidden={!liveOpen}>
+              <p className="live-heading">ON THE WEB</p>
+              {[
+                ['JoinDrive', 'joindrive.cfat.site', 'https://joindrive.cfat.site'],
+                ['Compass', 'compass.cfat.site', 'https://compass.cfat.site/'],
+                ['QR Authentication', 'shifatsrm09.github.io', 'https://shifatsrm09.github.io/QRAuthentication/#/login'],
+              ].map(([name, domain, href]) => (
+                <a key={name} href={href} target="_blank" rel="noopener noreferrer" onClick={() => setLiveOpen(false)} aria-label={`${name} (opens in a new tab)`}>
+                  <span><strong>{name}</strong><small>{domain}</small></span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M14 4h6v6m0-6L10 14M10 4H5a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-5" /></svg>
+                </a>
+              ))}
+            </div>
+          </div>
         </div>
       </nav>
     </header>
