@@ -2,15 +2,14 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 
 const themeJokes = [
-  'Eww, the big light! 😭',
-  'You again? Choose darkness. 🤨',
-  'Your retinas said nope. 😎',
   'Light mode? In this economy? 💸',
-  'Sir, this is a dark site. 🌚',
-  'Flashbang successfully dodged. 🥷',
-  'The sun has been blocked. 🚫',
-  'Nice try, tiny sunshine. ☀️',
-  'My pixels prefer pajamas. 💤',
+  'again? what are you recist?',
+  'No!',
+  'bro, stop.',
+  'Sir, this is a dark site.',
+  'Flashbang successfully dodged.',
+  'The sun has been blocked.',
+  'Nice try, but no.',
   'Back to the dark side. 🌑',
 ];
 
@@ -134,7 +133,7 @@ const CustomNavbar = () => {
               {[
                 ['JoinDrive', 'joindrive.cfat.site', 'https://joindrive.cfat.site'],
                 ['Compass', 'compass.cfat.site', 'https://compass.cfat.site/'],
-                ['QR Authentication', 'shifatsrm09.github.io', 'https://shifatsrm09.github.io/QRAuthentication/#/login'],
+                ['QR Auth', 'qr.cfat.site', 'https://qr.cfat.site/'],
               ].map(([name, domain, href]) => (
                 <a key={name} href={href} target="_blank" rel="noopener noreferrer" onClick={() => setLiveOpen(false)} aria-label={`${name} (opens in a new tab)`}>
                   <span><strong>{name}</strong><small>{domain}</small></span>

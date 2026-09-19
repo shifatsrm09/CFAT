@@ -9,7 +9,7 @@ const Hero = () => (
       <div className="intro-copy">
         <p className="intro-lead">Currently Studying CSE at Brac University.</p>
         <div className="intro-description">
-          <p>I build <strong>full-stack applications, developer tools, and systems</strong></p>
+          <p>I build software that solves practical problems and improve it through iteration.</p>
         </div>
       </div>
       <SocialLinks />
