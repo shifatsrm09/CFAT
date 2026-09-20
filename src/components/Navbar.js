@@ -134,6 +134,7 @@ const CustomNavbar = () => {
                 ['JoinDrive', 'joindrive.cfat.site', 'https://joindrive.cfat.site'],
                 ['Compass', 'compass.cfat.site', 'https://compass.cfat.site/'],
                 ['QR Auth', 'qr.cfat.site', 'https://qr.cfat.site/'],
+                ['Excela', 'excela.cfat.site', 'https://excela.cfat.site/'],
               ].map(([name, domain, href]) => (
                 <a key={name} href={href} target="_blank" rel="noopener noreferrer" onClick={() => setLiveOpen(false)} aria-label={`${name} (opens in a new tab)`}>
                   <span><strong>{name}</strong><small>{domain}</small></span>
