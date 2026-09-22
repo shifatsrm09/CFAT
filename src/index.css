@@ -143,6 +143,40 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--text-primary); 
   .about-bio p { font-size: 16px; }
   .about-projects-heading { margin-top: 40px; }
 }
+.shorten-page { flex: 1; display: grid; place-items: center; text-align: center; }
+.shorten-content { width: 100%; max-width: 520px; }
+.shorten-content h1 { margin: 0 0 14px; font-size: clamp(30px, 5vw, 38px); font-weight: 700; letter-spacing: -0.6px; }
+.shorten-form { display: flex; gap: 10px; margin-top: 8px; }
+.shorten-input { flex: 1; min-width: 0; padding: 13px 16px; border: 1px solid var(--border); border-radius: 12px; background: var(--bg-secondary); color: var(--text-primary); font-size: 15px; }
+.shorten-input::placeholder { color: var(--text-secondary); }
+.shorten-input:focus { outline: none; border-color: #ae96d660; box-shadow: 0 0 0 3px #ae96d61a; }
+.shorten-submit { flex-shrink: 0; padding: 13px 20px; border: 0; border-radius: 12px; background: var(--button-bg); color: var(--text-primary); font-size: 15px; font-weight: 600; cursor: pointer; transition: background 150ms ease; }
+.shorten-submit:hover:not(:disabled) { background: var(--button-hover); }
+.shorten-submit:disabled { opacity: 0.6; cursor: default; }
+.shorten-error { margin: 14px 0 0; color: #e08585; font-size: 14px; text-align: left; }
+.shorten-result { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 20px; padding: 15px 18px; border: 1px solid #ae96d660; border-radius: 14px; background: #ae96d60d; }
+.shorten-result-link { font-size: 17px; font-weight: 700; color: var(--text-primary); text-decoration: none; overflow-wrap: anywhere; text-align: left; }
+.shorten-result-link:hover { text-decoration: underline; }
+.shorten-copy { flex-shrink: 0; display: flex; align-items: center; gap: 6px; padding: 8px 13px; border: 1px solid var(--border); border-radius: 9px; background: var(--bg-secondary); color: var(--text-primary); font-size: 13px; font-weight: 600; cursor: pointer; transition: background 150ms ease, border-color 150ms ease; }
+.shorten-copy:hover { background: var(--button-bg); }
+.shorten-copy--ghost { padding: 8px; border-color: transparent; background: transparent; }
+.shorten-copy--ghost:hover { background: var(--button-bg); border-color: var(--border); }
+.shorten-history { margin-top: 40px; text-align: left; }
+.shorten-history-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; font-size: 12px; font-weight: 600; letter-spacing: 0.6px; text-transform: uppercase; color: var(--text-secondary); }
+.shorten-clear { border: 0; background: transparent; color: var(--text-secondary); font-size: 12px; font-weight: 600; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+.shorten-clear:hover { color: var(--text-primary); }
+.shorten-history-list { display: flex; flex-direction: column; gap: 8px; }
+.shorten-history-item { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 11px 13px; border: 1px solid var(--border); border-radius: 12px; background: var(--bg-secondary); }
+.shorten-history-text { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.shorten-history-short { font-size: 14px; font-weight: 600; color: var(--text-primary); text-decoration: none; }
+.shorten-history-short:hover { text-decoration: underline; }
+.shorten-history-long { font-size: 12px; color: var(--text-secondary); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.shorten-history-note { margin: 14px 0 0; color: var(--text-secondary); font-size: 12px; text-align: center; }
+@media (max-width: 575px) {
+  .shorten-form { flex-direction: column; }
+  .shorten-submit { width: 100%; }
+  .shorten-result { flex-direction: column; align-items: flex-start; }
+}
 .card, .form-control { background: var(--bg-secondary); border-color: var(--border); color: var(--text-primary); }
 .card-title, .form-label { color: var(--text-primary); }
 .card-text { color: var(--text-secondary); }
