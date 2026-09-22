@@ -154,9 +154,13 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--text-primary); 
 .shorten-submit:hover:not(:disabled) { background: var(--button-hover); }
 .shorten-submit:disabled { opacity: 0.6; cursor: default; }
 .shorten-error { margin: 14px 0 0; color: #e08585; font-size: 14px; text-align: left; }
-.shorten-result { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 20px; padding: 15px 18px; border: 1px solid #ae96d660; border-radius: 14px; background: #ae96d60d; }
+.shorten-result { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 20px; padding: 15px 18px; border: 1px solid #ae96d660; border-radius: 14px; background: #ae96d60d; transition: border-color 200ms ease; }
+.shorten-result.is-pending { border-color: var(--border); }
 .shorten-result-link { font-size: 17px; font-weight: 700; color: var(--text-primary); text-decoration: none; overflow-wrap: anywhere; text-align: left; }
 .shorten-result-link:hover { text-decoration: underline; }
+.shorten-result-status { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+.shorten-pending-dot { width: 7px; height: 7px; border-radius: 50%; background: #ae96d6; animation: shorten-pulse 1s ease-in-out infinite; }
+@keyframes shorten-pulse { 0%, 100% { opacity: 0.25; transform: scale(0.85); } 50% { opacity: 1; transform: scale(1); } }
 .shorten-copy { flex-shrink: 0; display: flex; align-items: center; gap: 6px; padding: 8px 13px; border: 1px solid var(--border); border-radius: 9px; background: var(--bg-secondary); color: var(--text-primary); font-size: 13px; font-weight: 600; cursor: pointer; transition: background 150ms ease, border-color 150ms ease; }
 .shorten-copy:hover { background: var(--button-bg); }
 .shorten-copy--ghost { padding: 8px; border-color: transparent; background: transparent; }

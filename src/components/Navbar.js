@@ -119,8 +119,8 @@ const CustomNavbar = () => {
           </div>
         </div>
         <div className="nav-links">
+          <NavLink to="/shorten">Tools</NavLink>
           <NavLink to="/about">About</NavLink>
-          <NavLink to="/shorten">Shorten</NavLink>
           <NavLink to="/contact">Contact</NavLink>
           <div className="live-dropdown" ref={liveRef} onBlur={(event) => {
             if (!event.currentTarget.contains(event.relatedTarget)) setLiveOpen(false);

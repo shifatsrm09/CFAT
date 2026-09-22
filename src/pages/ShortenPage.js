@@ -2,6 +2,15 @@ import React, { useEffect, useState } from 'react';
 
 const HISTORY_KEY = 'cfat-shortener-history';
 const HISTORY_LIMIT = 10;
+const CODE_ALPHABET = 'abcdefghijklmnpqrstuvwxyz123456789';
+
+const generateCandidateCode = () => {
+  let code = '';
+  for (let i = 0; i < 3; i += 1) {
+    code += CODE_ALPHABET[Math.floor(Math.random() * CODE_ALPHABET.length)];
+  }
+  return code;
+};
 
 const loadHistory = () => {
   try {
@@ -75,25 +84,33 @@ const ShortenPage = () => {
 
     setLoading(true);
     setError('');
-    setResult(null);
+
+    // Show a short link immediately using a client-guessed code, while the
+    // real reservation happens in the background. The server almost always
+    // keeps this exact code (62^3 ≈ 238k combinations make collisions rare),
+    // and silently swaps it in the rare case it was already taken.
+    const candidateCode = generateCandidateCode();
+    setResult({ code: candidateCode, shortUrl: `https://cfat.site/${candidateCode}`, pending: true });
 
     try {
       const response = await fetch('/api/shorten', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ url: trimmed }),
+        body: JSON.stringify({ url: trimmed, code: candidateCode }),
       });
       const data = await response.json();
 
       if (!response.ok) {
+        setResult(null);
         setError(data?.error || 'Something went wrong. Please try again.');
         return;
       }
 
-      setResult(data);
+      setResult({ ...data, pending: false });
       addToHistory({ ...data, longUrl: trimmed, createdAt: new Date().toISOString() });
       setUrl('');
     } catch {
+      setResult(null);
       setError('Could not reach the server. Please try again.');
     } finally {
       setLoading(false);
@@ -126,14 +143,17 @@ const ShortenPage = () => {
         {error && <p className="shorten-error" role="alert">{error}</p>}
 
         {result && (
-          <div className="shorten-result">
+          <div className={`shorten-result${result.pending ? ' is-pending' : ''}`}>
             <a href={result.shortUrl} target="_blank" rel="noopener noreferrer" className="shorten-result-link">
               {result.shortUrl.replace('https://', '')}
             </a>
-            <button type="button" className="shorten-copy" onClick={() => copyToClipboard(result.shortUrl, result.code)} aria-label="Copy short link">
-              {copiedCode === result.code ? <CheckIcon /> : <CopyIcon />}
-              {copiedCode === result.code ? 'Copied' : 'Copy'}
-            </button>
+            <span className="shorten-result-status" aria-live="polite">
+              {result.pending ? <span className="shorten-pending-dot" aria-hidden="true" /> : null}
+              <button type="button" className="shorten-copy" onClick={() => copyToClipboard(result.shortUrl, result.code)} aria-label="Copy short link">
+                {copiedCode === result.code ? <CheckIcon /> : <CopyIcon />}
+                {copiedCode === result.code ? 'Copied' : 'Copy'}
+              </button>
+            </span>
           </div>
         )}
 

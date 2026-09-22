@@ -3,7 +3,7 @@ const { getLinksCollection } = require('../lib/mongodb');
 module.exports = async (req, res) => {
   const code = String(req.query?.code || '');
 
-  if (!/^[A-Za-z0-9]{3}$/.test(code)) {
+  if (!/^[a-np-z1-9]{3}$/.test(code)) {
     res.status(404).send('Not found.');
     return;
   }
