@@ -12,6 +12,14 @@ const generateCandidateCode = () => {
   return code;
 };
 
+// People often paste a bare domain like "facebook.com/whatever" — assume
+// https:// instead of forcing them to type the scheme themselves.
+const normalizeUrl = (value) => {
+  const trimmed = value.trim();
+  if (!trimmed) return '';
+  return /^https?:\/\//i.test(trimmed) ? trimmed : `https://${trimmed}`;
+};
+
 const loadHistory = () => {
   try {
     const raw = localStorage.getItem(HISTORY_KEY);
@@ -79,7 +87,7 @@ const ShortenPage = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const trimmed = url.trim();
+    const trimmed = normalizeUrl(url);
     if (!trimmed) return;
 
     setLoading(true);
@@ -126,10 +134,10 @@ const ShortenPage = () => {
 
         <form className="shorten-form" onSubmit={handleSubmit}>
           <input
-            type="url"
+            type="text"
             inputMode="url"
             required
-            placeholder="https://example.com/a/very/long/link"
+            placeholder="nastyLongLinkHere.com/with/a/bunch/of/stuff"
             value={url}
             onChange={(event) => setUrl(event.target.value)}
             className="shorten-input"

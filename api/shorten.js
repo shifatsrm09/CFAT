@@ -14,6 +14,14 @@ function isValidUrl(value) {
   }
 }
 
+// People often paste a bare domain like "facebook.com/whatever" — assume
+// https:// instead of forcing them to type the scheme themselves.
+function normalizeUrl(value) {
+  const trimmed = String(value || '').trim();
+  if (!trimmed) return '';
+  return /^https?:\/\//i.test(trimmed) ? trimmed : `https://${trimmed}`;
+}
+
 module.exports = async (req, res) => {
   if (req.method !== 'POST') {
     res.setHeader('Allow', 'POST');
@@ -30,7 +38,7 @@ module.exports = async (req, res) => {
     }
   }
 
-  const longUrl = String(body?.url || '').trim();
+  const longUrl = normalizeUrl(body?.url);
   const preferredCode = String(body?.code || '').trim();
 
   if (!longUrl || !isValidUrl(longUrl)) {
